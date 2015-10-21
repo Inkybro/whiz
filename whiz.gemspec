@@ -7,11 +7,11 @@ Gem::Specification.new do |spec|
   spec.name          = "whiz"
   spec.version       = Whiz::VERSION
   spec.authors       = ["Ethan M. Barron"]
-  spec.email         = ["inkybro@gmail.com"]
+  spec.email         = ["ethan.michael.barron@gmail.com"]
 
-  spec.summary       = %q{TODO: Write a short summary, because Rubygems requires one.}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.summary       = %q{TODO: Whiz allows one to quickly generate custom boilerplate code.}
+  spec.description   = %q{TODO: If you're tired of writing the same boilerplate code again and again, Whiz is for you. Whiz lets you manage custom code templates, and gives you tools that allow you to generate those templates at a later time.}
+  #spec.homepage      = "TODO: Put your gem's website or public repo URL here."
 
   # Prevent pushing this gem to RubyGems.org by setting 'allowed_push_host', or
   # delete this section to allow pushing this gem to any host.
@@ -29,4 +29,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "bundler", "~> 1.10"
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "rspec"
+  spec.add_development_dependency "database_cleaner"
 end
