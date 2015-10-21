@@ -1,0 +1,84 @@
+#!/usr/bin/env ruby
+
+require 'thor'
+require 'whiz'
+
+module Whiz
+  module CLI
+    def self.process_opts(opts)
+      options = {}
+      opts.each do |opt|
+        key = opt[/(.+?)=(.+)/,1]
+        value = opt[/(.+?)=(.+)/,2]
+        options[key] = value
+      end
+      options
+    end
+
+    class Tome < Thor
+      desc "list", "list all Tomes"
+      def list
+        if Whiz.tomes.empty?
+          puts "There are no tomes"
+        else
+          puts "*** ALL TOMES ***"
+          puts Whiz.tomes.map(&:name)
+        end
+      end
+
+      desc "use TOME", "set TOME as current Tome"
+      def use(tome)
+        Whiz::Tome.find_or_create(tome)
+        Whiz.config[:current_tome] = tome
+        Whiz.config.save
+        puts "Using tome: #{tome}"
+      end
+
+      desc "current", "report current Tome"
+      def current
+        puts "Current tome: #{(Whiz.tome ? Whiz.tome.name : '(none)')}"
+      end
+
+      desc "destroy TOME", "destroys Tome with the name TOME"
+      def destroy(tome)
+        if the_tome = Whiz::Tome.find(tome)
+          the_tome.destroy
+          puts "Tome #{tome} destroyed"
+        else
+          puts "Tome #{tome} does not exist"
+        end
+      end
+    end
+
+    class Page < Thor
+      desc "edit PAGE", "open the PAGE in a text editor"
+      def edit(page)
+      end
+
+      desc "destroy PAGE", "destroy the PAGE"
+      def destroy(page)
+      end
+
+      desc "vars PAGE", "list variables present in PAGE"
+      def vars(page)
+      end
+    end
+
+    class Main < Thor
+      desc "tome SUBCOMMAND ...ARGS", "manage tomes"
+      subcommand "tome", Whiz::CLI::Tome
+
+      desc "page SUBCOMMAND ...ARGS", "manage tome pages"
+      subcommand "page", Whiz::CLI::Page
+
+      desc "generate PAGE DESTINATION", "generate DESTINATION from PAGE template"
+      def generate(page, destination, *locals)
+        #puts "generate DESTINATION '#{destination}' for PAGE '#{page}'"
+        #puts Whiz::CLI.process_opts(opts).inspect
+
+      end
+    end
+  end
+end
+ 
+Whiz::CLI::Main.start(ARGV)
