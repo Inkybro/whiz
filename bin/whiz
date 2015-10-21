@@ -50,32 +50,47 @@ module Whiz
       end
     end
 
-    class Page < Thor
-      desc "edit PAGE", "open the PAGE in a text editor"
-      def edit(page)
-      end
-
-      desc "destroy PAGE", "destroy the PAGE"
-      def destroy(page)
-      end
-
-      desc "vars PAGE", "list variables present in PAGE"
-      def vars(page)
-      end
-    end
+    #class Page < Thor
+    #end
 
     class Main < Thor
       desc "tome SUBCOMMAND ...ARGS", "manage tomes"
       subcommand "tome", Whiz::CLI::Tome
 
-      desc "page SUBCOMMAND ...ARGS", "manage tome pages"
-      subcommand "page", Whiz::CLI::Page
+      desc "list", "list all Pages for current Tome"
+      def list
+        if Whiz.tome.pages.empty?
+          puts "There are no pages"
+        else
+          puts "*** PAGES IN #{Whiz.tome.name.upcase} ***"
+          puts Whiz.tome.pages.map(&:name)
+        end  
+      end
+
+      desc "edit PAGE", "open the PAGE in a text editor"
+      def edit(page)
+        Whiz::Page.new(page).edit
+        puts "Finished editing #{page}"
+      end
+
+      desc "destroy PAGE", "destroy the PAGE"
+      def destroy(page)
+        if Whiz::Page.new(page).destroy
+          puts "Page #{page} destroyed"
+        else
+          puts "Page #{page} does not exist"
+        end
+      end
+
+      #desc "vars PAGE", "list variables present in PAGE"
+      #def vars(page)
+      #  Whiz::Page.new(page).vars
+      #end
 
       desc "generate PAGE DESTINATION", "generate DESTINATION from PAGE template"
-      def generate(page, destination, *locals)
-        #puts "generate DESTINATION '#{destination}' for PAGE '#{page}'"
-        #puts Whiz::CLI.process_opts(opts).inspect
-
+      def generate(page, filename, *locals)
+        Whiz::Page.new(page).generate(filename, Whiz::CLI.process_opts(locals))
+        puts "Generated #{filename} from #{page}"
       end
     end
   end
