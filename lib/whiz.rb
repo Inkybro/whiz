@@ -12,6 +12,14 @@ module Whiz
     @@config ||= Whiz::ConfigFile.load!
   end
 
+  def self.tome
+    @@tome ||= Whiz::Tome.current
+  end
+
+  def self.tomes
+    @@tomes ||= Whiz::Tome.all
+  end
+
   def self.boot!
     Whiz::DotWhiz.verify_dot_whiz!
     Whiz::DotWhiz.verify_config!
