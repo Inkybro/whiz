@@ -1,5 +1,6 @@
 require "whiz/version"
-require "whiz/folder"
+require "whiz/dot_whiz"
+require "whiz/config_file"
 require "whiz/tome"
 
 module Whiz
@@ -8,12 +9,13 @@ module Whiz
   end
 
   def self.config
-    @@config ||= Whiz::Folder::ConfigYaml.load!
+    @@config ||= Whiz::ConfigFile.load!
   end
 
   def self.boot!
-    Whiz::Folder.verify_dot_whiz!
-    Whiz::Tome.verify_tomes!
+    Whiz::DotWhiz.verify_dot_whiz!
+    Whiz::DotWhiz.verify_config!
+    Whiz::DotWhiz.verify_tomes!
   end
 end
 

@@ -1,14 +1,5 @@
 module Whiz
   class Tome
-    def self.tomes_path
-      "#{Whiz::Folder.dot_whiz_path}/tomes"
-    end
-
-    def self.verify_tomes!
-      Whiz::Folder.verify_dot_whiz!
-      FileUtils.mkdir(tomes_path) unless Dir.exists?(tomes_path)
-    end
-
     def self.find(name)
       tome = Whiz::Tome.new(name)
       tome.saved? ? tome : nil
@@ -41,7 +32,7 @@ module Whiz
     private
 
     def tome_path
-      "#{Whiz::Tome.tomes_path}/#{name}"
+      "#{Whiz::DotWhiz.tomes_path}/#{name}"
     end
   end
 end

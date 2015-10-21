@@ -14,7 +14,7 @@ describe Whiz do
 
     describe '::config' do
       it 'returns the ConfigYaml object' do
-        expect(described_class.config).to be_a(Whiz::Folder::ConfigYaml)
+        expect(described_class.config).to be_a(Whiz::ConfigFile)
       end
     end
 
