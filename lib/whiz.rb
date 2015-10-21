@@ -12,7 +12,8 @@ module Whiz
   end
 
   def self.boot!
-    Folder.verify_dot_whiz_path!
+    Whiz::Folder.verify_dot_whiz!
+    Whiz::Tome.verify_tomes!
   end
 end
 

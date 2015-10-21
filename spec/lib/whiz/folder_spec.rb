@@ -15,7 +15,7 @@ module Whiz
 
       describe 'verify_dot_whiz_path!' do
         before do
-          described_class.verify_dot_whiz_path!
+          described_class.verify_dot_whiz!
         end
 
         it 'ensures the .whiz folder exists' do

@@ -6,7 +6,7 @@ module Whiz
       "#{home_path}/.whiz#{Whiz.environment == :test ? '_test' : nil}"
     end
 
-    def self.verify_dot_whiz_path!
+    def self.verify_dot_whiz!
       Dir.mkdir(dot_whiz_path) unless Dir.exists?(dot_whiz_path)
     end
 

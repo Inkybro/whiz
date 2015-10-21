@@ -10,11 +10,11 @@ module Whiz
       end
 
       def self.config_file
-        "#{Folder.dot_whiz_path}/whiz.yaml"
+        "#{Whiz::Folder.dot_whiz_path}/whiz.yaml"
       end
 
       def self.verify_config!
-        Whiz::Folder.verify_dot_whiz_path!
+        Whiz::Folder.verify_dot_whiz!
         if !File.exists?(config_file)
           File.open(config_file, 'w') do |f|
             f.print default_options.to_yaml
@@ -24,7 +24,7 @@ module Whiz
 
       def self.load!
         verify_config!
-        ConfigYaml.new(config_file)
+        Whiz::Folder::ConfigYaml.new(config_file)
       end
 
       attr_reader :filename, :data

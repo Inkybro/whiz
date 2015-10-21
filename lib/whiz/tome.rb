@@ -1,0 +1,47 @@
+module Whiz
+  class Tome
+    def self.tomes_path
+      "#{Whiz::Folder.dot_whiz_path}/tomes"
+    end
+
+    def self.verify_tomes!
+      Whiz::Folder.verify_dot_whiz!
+      FileUtils.mkdir(tomes_path) unless Dir.exists?(tomes_path)
+    end
+
+    def self.find(name)
+      tome = Whiz::Tome.new(name)
+      tome.saved? ? tome : nil
+    end
+
+    def self.create(name)
+      tome = Whiz::Tome.new(name)
+      !tome.saved? ? tome.save : nil
+    end
+
+    def self.find_or_create(name)
+      find(name) || create(name)
+    end
+
+    attr_reader :name
+
+    def initialize(name)
+      @name = name
+    end
+
+    def save
+      FileUtils.mkdir_p(tome_path) unless saved?
+      self
+    end
+
+    def saved?
+      Dir.exists?(tome_path)
+    end
+
+    private
+
+    def tome_path
+      "#{Whiz::Tome.tomes_path}/#{name}"
+    end
+  end
+end
