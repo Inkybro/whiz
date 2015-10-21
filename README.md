@@ -48,15 +48,15 @@ Make a tome (or 2, 3, 4):
 whiz tome use my_tome
 ```
 
-Note that the `whiz tome use` command acts both as a way of switching between tomes, and creating tomes.
+Note that the `whiz tome use` command acts both as a way of switching between and creating tomes.
 
-You can verify your tome is setup by running
+You can verify your tome is being used by running
 
 ```
 whiz tome current
 ```
 
-If you ever need to delete a tome (including its pages), run
+If you ever need to delete a tome (including its pages!),
 
 ```
 whiz tome remove my_tome
@@ -76,6 +76,8 @@ You can create and edit pages like,
 whiz edit my_page
 ```
 
+This opens the file for editing in `nano`, at this time.
+
 #### `whiz destroy`
 
 You can destroy pages like,
@@ -88,7 +90,7 @@ whiz destroy my_page
 
 You can generate code using the generate command.
 
-The first argument is the page name, and the second is the path to the file you'd like to write to.
+The first argument is the page name, and the second is the path to the file you'd like to write.
 
 Any additional arguments are passed as space-separated key-value pairs in the format `key=value`. The additional arguments passed here are used as locals in the pages. This is useful for cases where you want to plug in your own values on generation.
 
