@@ -1,3 +1,5 @@
+require 'erubis'
+
 module Whiz
   class Page
     Error = Class.new(StandardError)
@@ -16,6 +18,7 @@ module Whiz
     end
 
     def edit
+      File.open(page_path, 'w') unless saved?
       system('nano', page_path)
     end
 
@@ -32,10 +35,26 @@ module Whiz
       File.exists?(page_path)
     end
 
+    def generate(filename, locals={})
+      src = render(locals)
+      File.open(filename, 'w') {|f| f.write src }
+      puts src
+      puts
+    end
+
     private
 
     def page_path
       "#{Whiz::DotWhiz.tomes_path}/#{tome.name}/#{name}"
+    end
+
+    def read_page
+      File.read(page_path)
+    end
+
+    def render(locals={})
+      return unless saved?
+      Erubis::Eruby.new(read_page).result(locals)
     end
 
     def fail_with(*args)
