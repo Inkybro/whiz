@@ -10,7 +10,7 @@ module Whiz
 
     def self.load!
       Whiz::DotWhiz.verify_config!
-      Whiz::ConfigFile.new(config_file)
+      Whiz::ConfigFile.new(Whiz::DotWhiz.config_file)
     end
 
     attr_reader :filename, :data
