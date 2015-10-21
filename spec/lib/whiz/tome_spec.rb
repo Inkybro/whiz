@@ -177,6 +177,28 @@ module Whiz
           end
         end
       end
+
+      describe '#pages' do
+        let(:tome) { Whiz::Tome.find_or_create(:my_tome) }
+        let(:tome_path) { "#{dot_whiz_path}/tomes/#{tome.name}" }
+
+        context 'saved tome' do
+          before do
+            Whiz::Tome.current = tome.name
+            File.open("#{tome_path}/my_page", 'w')
+          end
+
+          it 'returns the pages' do
+            expect(tome.pages.count).to eq(1)
+          end
+        end
+
+        context 'unsaved tome' do
+          it 'returns an empty array' do
+            expect(tome.pages.count).to eq(0)
+          end
+        end
+      end
     end
   end
 end

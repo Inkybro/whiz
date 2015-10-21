@@ -57,6 +57,16 @@ module Whiz
       end
     end
 
+    def pages
+      if saved?
+        Dir.glob("#{tome_path}/*").map do |page_path|
+          Whiz::Page.new(page_path.split('/').last)
+        end
+      else
+        []
+      end
+    end
+
     private
 
     def tome_path
