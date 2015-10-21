@@ -10,11 +10,11 @@ module Whiz
       end
 
       def self.config_file
-        "#{Folder.whiz_path}/whiz.yaml"
+        "#{Folder.dot_whiz_path}/whiz.yaml"
       end
 
       def self.verify_config!
-        Whiz::Folder.verify_whiz_path!
+        Whiz::Folder.verify_dot_whiz_path!
         if !File.exists?(config_file)
           File.open(config_file, 'w') do |f|
             f.print default_options.to_yaml

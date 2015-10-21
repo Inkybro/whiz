@@ -1,5 +1,6 @@
 require "whiz/version"
 require "whiz/folder"
+require "whiz/tome"
 
 module Whiz
   def self.environment
@@ -11,7 +12,7 @@ module Whiz
   end
 
   def self.boot!
-    Folder.verify_whiz_path!
+    Folder.verify_dot_whiz_path!
   end
 end
 

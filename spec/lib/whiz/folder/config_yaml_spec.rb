@@ -3,16 +3,10 @@ require 'spec_helper'
 module Whiz
   module Folder
     describe ConfigYaml do
-      @@whiz_path = "#{ENV['HOME']}/.whiz_test"
-      @@config_file = "#{@@whiz_path}/whiz.yaml"
-
       after(:all) do
-        File.delete(@@config_file) if File.exists?(@@config_file)
-        Dir.rmdir(@@whiz_path) if Dir.exists?(@@whiz_path)
+        teardown_dot_whiz!
       end
 
-      let!(:whiz_path) { @@whiz_path }
-      let!(:config_file) { @@config_file }
       let!(:default_config_data) do
         {
           current_tome: nil

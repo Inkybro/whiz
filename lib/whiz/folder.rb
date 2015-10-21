@@ -2,12 +2,12 @@ require 'whiz/folder/config_yaml'
 
 module Whiz
   module Folder
-    def self.whiz_path
+    def self.dot_whiz_path
       "#{home_path}/.whiz#{Whiz.environment == :test ? '_test' : nil}"
     end
 
-    def self.verify_whiz_path!
-      Dir.mkdir(whiz_path) unless Dir.exists?(whiz_path)
+    def self.verify_dot_whiz_path!
+      Dir.mkdir(dot_whiz_path) unless Dir.exists?(dot_whiz_path)
     end
 
     private
