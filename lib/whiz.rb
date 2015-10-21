@@ -1,3 +1,5 @@
+require 'active_support/all'
+
 require "whiz/version"
 require "whiz/dot_whiz"
 require "whiz/config_file"
