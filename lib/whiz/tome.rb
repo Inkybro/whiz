@@ -29,6 +29,15 @@ module Whiz
       Dir.exists?(tome_path)
     end
 
+    def destroy
+      if saved?
+        FileUtils.rm_r(tome_path)
+        true
+      else
+        false
+      end
+    end
+
     private
 
     def tome_path

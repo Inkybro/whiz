@@ -86,6 +86,26 @@ module Whiz
         end
       end
 
+      context '#destroy' do
+        let!(:tome) { described_class.new(:le_tome) }
+
+        context 'unsaved tome' do
+          it 'returns false' do
+            expect(tome.destroy).to eq(false)
+          end
+        end
+
+        context 'saved tome' do
+          before do
+            tome.save
+          end
+
+          it 'returns true' do
+            expect(tome.destroy).to eq(true)
+          end
+        end
+      end
+
       describe '#saved?' do
         let(:saved_tome) { described_class.find_or_create(:saved_tome) }
         let(:unsaved_tome) { described_class.new(:unsaved_tome) }
