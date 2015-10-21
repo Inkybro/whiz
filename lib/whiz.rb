@@ -2,6 +2,7 @@ require "whiz/version"
 require "whiz/dot_whiz"
 require "whiz/config_file"
 require "whiz/tome"
+require "whiz/page"
 
 module Whiz
   def self.environment
