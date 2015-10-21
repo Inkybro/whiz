@@ -63,6 +63,49 @@ module Whiz
           end
         end
       end
+
+      describe '::current=' do
+        before do
+          Whiz.config[:current_tome] = nil
+          Whiz.config.save
+          described_class.current = :le_tome
+        end
+
+        it 'sets the current tome' do
+          expect(Whiz.config[:current_tome]).to eq(:le_tome)
+        end
+      end
+
+      describe '::current' do
+        context 'a current tome is not set' do
+          before do
+            described_class.current = nil
+          end
+
+          it 'returns nil' do
+            expect(described_class.current).to be_nil
+          end
+        end
+
+        context 'a current tome is set' do
+          before do
+            described_class.current = :a_tome
+          end
+
+          it 'returns the tome' do
+            expect(described_class.current).to be_a(described_class)
+          end
+        end
+      end
+
+      describe '::all' do
+        let!(:tome_one) { described_class.create(:tome_one) }
+        let!(:tome_two) { described_class.create(:tome_two) }
+
+        it 'returns all the tomes' do
+          expect(described_class.all.count).to eq(2)
+        end
+      end
     end
 
     describe 'instance methods' do
@@ -102,6 +145,18 @@ module Whiz
 
           it 'returns true' do
             expect(tome.destroy).to eq(true)
+          end
+        end
+
+        context 'saved tome set as current' do
+          before do
+            tome.save
+            described_class.current = :le_tome
+            tome.destroy
+          end
+
+          it 'sets the current_tome to nil' do
+            expect(Whiz.config[:current_tome]).to be_nil
           end
         end
       end
